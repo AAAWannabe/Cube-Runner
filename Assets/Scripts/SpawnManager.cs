@@ -10,12 +10,14 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         InvokeRepeating(nameof(SpawnCubes), 1.0f, 1f);
+        
     }
-
 
     void SpawnCubes()
     {
-        Instantiate(goCube, new Vector3(goCube.transform.position.x, goCube.transform.position.y, goCube.transform.position.z), Quaternion.identity);
-        goCube.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", cubeColours[Random.Range(0, cubeColours.Length)]);
+        //well.. sharedMaterial changes them all
+        //goCube.GetComponent<Renderer>().sharedMaterial.SetColor("_Color", cubeColours[Random.Range(0, cubeColours.Length)]);
+        var instPrefab = Instantiate(goCube, new Vector3(goCube.transform.position.x, goCube.transform.position.y, Random.Range(-6f, 6f)), Quaternion.identity);
+        instPrefab.GetComponent<Renderer>().material.color = cubeColours[Random.Range(0, cubeColours.Length)];
     }
 }
